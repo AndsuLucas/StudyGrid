@@ -23,8 +23,14 @@
     </head>
 </head>
 <body>
-    <div class="container">
+    <header>
+        Header
+        <nav>
+            
+        </nav>
+    </header>
+    <main class="container">
         @yield('content')
-    </div>
+    </main>
 </body>
 </html>
