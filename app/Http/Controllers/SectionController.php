@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Section;
 use App\Models\Content;
+use Illuminate\Support\Facades\DB;
 
 class SectionController extends Controller
 {
@@ -20,7 +21,11 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $sections = Section::all();
+        $sections = Section::join('content', 'section.id', '=', 'content.Section')
+            ->select('section.*', DB::raw('count(content.id) as content_count'))
+            ->groupBy('section.id')
+            ->get();
+    
         return view('section.index', ['sections' => $sections]);
     }
 
@@ -67,6 +72,15 @@ class SectionController extends Controller
         }
         
         return view('section.show', ['section' => $sectionData]);
+    }
+
+    public function contents($id) 
+    {
+       $contents = Content::where('Section', '=', $id)
+        ->get();
+
+        return view('content.index', ['contents' => $contents]);
+       
     }
 
     /**

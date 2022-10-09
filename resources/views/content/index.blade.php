@@ -22,7 +22,7 @@
                             <button class="btn-sm btn-danger delete-button" type="submit">DELETE</button>
                         </form>
                         <br>
-                        <a href="{{ 'content/' . $content->id . '/edit' }}" class="btn-sm btn-info">EDIT</a>
+                        <a href="{{ '/content/' . $content->id . '/edit' }}" target="__blank" class="btn-sm btn-info">EDIT</a>
                     </td>
                     <td>{{ $content->id }}</td>
                     <td>{{ $content->title}}</td>
@@ -54,11 +54,8 @@
             contentLine.forEach((element) => {
                 element.addEventListener('click', (event) => {
                     event.stopPropagation();
-                    if (!confirm('Edit this register?')) {
-                        return;
-                    }
                     const contentId = element.dataset.id;
-                    window.location = '/content/' + contentId;
+                    window.open('/content/' + contentId, 'content' + contentId);
                 });
             });
         })();
