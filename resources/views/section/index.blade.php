@@ -1,4 +1,4 @@
-@extends('layout');
+@extends('layout')
 @section('content')
     <table class="table table-hover">
         <thead class="thead-dark">
