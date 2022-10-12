@@ -22,7 +22,9 @@
                             <button class="btn-sm btn-danger delete-button" type="submit">DELETE</button>
                         </form>
                         <br>
-                        <a href="{{ '/content/' . $content->id . '/edit' }}" target="__blank" class="btn-sm btn-info">EDIT</a>
+                        <a href="{{ '/content/' . $content->id . '/edit' }}"
+                             target="__blank" class="btn-sm btn-info"
+                             onclick="event.stopPropagation()">EDIT</a>
                     </td>
                     <td>{{ $content->id }}</td>
                     <td>{{ $content->title}}</td>

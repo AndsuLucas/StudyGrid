@@ -24,4 +24,5 @@ Route::resource('section', SectionController::class);
 Route::controller(SectionController::class)->group(function(){
     Route::get('section/{section}/contents', 'contents');
 });
+
 require __DIR__.'/auth.php';

@@ -21,7 +21,13 @@ class ContentController extends Controller
      */
     public function index()
     {
-        $contents = Content::all();
+        $searchPattern = trim(request()->query('search'));
+        $contents = empty($searchPattern) ? Content::all()
+            : Content::where('title', 'like', '%' . $searchPattern . '%')
+                ->orWhere('id', 'like', '%' . $searchPattern . '%')
+                ->orWhere('status', 'like', '%' . $searchPattern . '%')
+                ->get();
+
         return view('content.index', ['contents' => $contents]);        
     }
 

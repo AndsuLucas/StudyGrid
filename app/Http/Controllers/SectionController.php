@@ -21,11 +21,19 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $sections = Section::join('content', 'section.id', '=', 'content.Section')
-            ->select('section.*', DB::raw('count(content.id) as content_count'))
-            ->groupBy('section.id')
-            ->get();
-    
+        $searchPattern = request()->query('search');
+        $sections = empty($searchPattern) ?
+            Section::join('content', 'section.id', '=', 'content.Section')
+                ->select('section.*', DB::raw('count(content.id) as content_count'))
+                ->groupBy('section.id')
+                ->get()
+            : Section::join('content', 'section.id', '=', 'content.Section')
+                ->select('section.*', DB::raw('count(content.id) as content_count'))
+                ->where('name', 'like', '%' . $searchPattern . '%')
+                ->orWhere('content.id', 'like', '%' . $searchPattern . '%')
+                ->groupBy('section.id')
+                ->get();
+
         return view('section.index', ['sections' => $sections]);
     }
 

@@ -429,6 +429,28 @@
                             <li><a class="dropdown-item" href="/content/create">New</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <form class="d-flex" action="{{ url()->current() }}" method="GET" id="searchForm">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
+                        </form>
+                        <script>
+                            (function(){
+                                const form = document.querySelector('#searchForm');
+                                form.addEventListener('submit', function(event){
+                                    event.preventDefault();
+
+                                    const input = form.querySelector('#search');
+                                    const isValidInputSearch = input.value.trim() != '';
+
+                                    if (!isValidInputSearch) {
+                                        return;
+                                    }
+
+                                    form.submit();
+                                });
+                            })();
+                        </script>
+                    </li>
                 </ul>
                 <ul class="navbar-nav align-self-end mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
